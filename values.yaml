@@ -1,0 +1,35 @@
+#mysqldeployment
+mysql:
+  image: "mysql:5.6"
+  replicas: 1
+  containerPort: 3306
+  pvcName: "my-pvc"
+  rootPassword: "dbpassword11"
+  storage: 3Gi
+
+
+# User Management Web App values
+usermgmtWebApp:
+  image: "stacksimplify/kube-usermgmt-webapp:1.0.0-MySQLDB"
+  replicas: 3
+  containerPort: 8080
+  initContainerImage: "busybox:1.31"
+  db:
+    name: webappdb
+    username: root
+    password: dbpassword11
+    hostname: mysql
+    port: 3306
+
+#mysql seervice
+mysqlservice:
+  service:
+    port: 80
+    targetPort: 3306
+    clusterIP: "None"
+
+#userservice
+userwebappservice:
+  type: LoadBalancer
+  port: 80
+  targetport: 8080

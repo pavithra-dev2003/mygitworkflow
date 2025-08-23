@@ -1,0 +1,6 @@
+apiVersion: v2
+name: webappchart #name of  the chart 
+description: A Helm chart for MySQL and User Management Web App
+type: application
+version: 0.1.0
+appVersion: "1.1.0"
